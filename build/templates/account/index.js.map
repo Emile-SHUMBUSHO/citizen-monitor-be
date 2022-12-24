@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":[],"sources":["../../../src/templates/account/index.js"],"sourcesContent":["import sendEmailOtp from './sendEmailOtp';\n\nexport {\n  sendEmailOtp,\n};\n"],"mappings":";;;;;;;;;;;;AAAA"}

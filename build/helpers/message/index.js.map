@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":[],"sources":["../../../src/helpers/message/index.js"],"sourcesContent":["import errors from 'errors';\nimport notifications from 'notifications';\n\nexport { errors, notifications };\n"],"mappings":";;;;;;;;;;;;;;;;;;AAAA;AACA"}

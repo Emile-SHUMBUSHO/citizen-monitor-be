@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["login","register"],"sources":["../../../../src/middlewares/validate/auth/index.js"],"sourcesContent":["import login from './login';\nimport register from './register';\n\nexport default { login, register };\n"],"mappings":";;;;;;;AAAA;AACA;AAAkC,eAEnB;EAAEA,KAAK,EAALA,iBAAK;EAAEC,QAAQ,EAARA;AAAS,CAAC;AAAA"}

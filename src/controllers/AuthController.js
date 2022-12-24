@@ -47,9 +47,9 @@ export default class AuthLocalController {
         .json({ response: { email: response.email } })
     } catch (error) {
       return res.status(status.BAD_REQUEST).send({
-        error:
-          'Sorry, we can not create your account right now. Try again later',
-          message: error.message
+        error: error.message,
+          // 'Sorry, we can not create your account right now. Try again later',
+          
       })
     }
   }
