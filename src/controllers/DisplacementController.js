@@ -1,0 +1,103 @@
+import { Create, FindOne, Delete, FindAll } from '../database/queries'
+
+
+export default class DisplacementController {
+    static async requestToLeaveVillage(req, res) {
+        const {id} = req.user;
+    
+        const data = req.body
+            data.userId = id
+            data.status = 'pending'
+
+        const condition = {
+            userId: id,
+            status: 'approved'
+        }
+        const response = await FindOne('UserAddress', condition)
+
+        if(Object.keys(response).length === 0) {
+            return res.status(404).json({
+                message: 'Address of user not Found!'
+            })
+        }
+
+         // Archiving in history
+        const hstr = await Create('DisplacementHistory', {
+            userId: id,
+            from: [
+                response.province,
+                response.district,
+                response.sector,
+                response.cell,
+                response.village,
+            ],
+            to: [
+                data.province,
+                data.district,
+                data.sector,
+                data.cell,
+                data.village,
+            ],
+            status: 'pending',
+            date: Date.now()
+
+        })
+        // updating address of user
+        const displacing= await response.update({ 
+            ...data
+         })
+        return res.status(200).json({
+            message: 'You request to left village received',
+            response: displacing,
+        })
+    }
+
+    static async approveLeaving(req, res) {
+        const {userId} = req.params;
+
+        const condition = {
+            userId,
+            status: 'pending'
+        }
+        const response = await FindOne('UserAddress', condition)
+
+        if(Object.keys(response).length === 0) {
+            return res.status(404).json({
+                message: 'Address of user not Found or You have already approved!'
+            })
+        }
+
+        const approvedAddress = await response.update({ status: 'approved' })
+
+        // Archiving in history
+        await Create('DisplacementHistory', {
+            userId,
+            to: [
+                approvedAddress.province,
+                approvedAddress.district,
+                approvedAddress.sector,
+                approvedAddress.cell,
+                approvedAddress.village,
+            ],
+            status: 'approved',
+            date: Date.now()
+
+        })
+
+        return res.status(200).json({
+            message: 'Successfully citizen address approved!',
+            response: approvedAddress,
+        })
+    }
+
+    static async getHistory(req, res){
+        const {id} = req.user;
+
+        const response = await FindAll('DisplacementHistory', {userId: id})
+
+        return res.status(200).json({
+            message: 'Displacement history retrieved successfully',
+            response
+        })
+    }
+}

@@ -1,6 +1,6 @@
 export default {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('Profiles', {
+    queryInterface.createTable('UserAddresses', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -17,26 +17,6 @@ export default {
           model: 'Users',
           key: 'id',
         },
-      },
-      firstName: {
-        type: 
-        Sequelize.STRING,
-        allowNull: false,
-      },
-      lastName: {
-        type: 
-        Sequelize.STRING,
-        allowNull: false,
-      },
-      ID: {
-        type: 
-        Sequelize.STRING,
-        allowNull: true,
-      },
-      phoneNumber: {
-        type: 
-        Sequelize.STRING,
-        allowNull: false,
       },
       province: {
         type: 
@@ -63,10 +43,10 @@ export default {
         Sequelize.STRING,
         allowNull: false,
       },
-      photo: {
+      status: {
         type: 
-        Sequelize.STRING,
-        allowNull: true,
+          Sequelize.ENUM('pending', 'approved'),
+        defaultValue: 'pending',  
       },
       createdAt: {
         allowNull: false,
@@ -79,5 +59,5 @@ export default {
         Sequelize.DATE,
       },
     }),
-  down: (queryInterface) => queryInterface.dropTable('Profiles'),
+  down: (queryInterface) => queryInterface.dropTable('UserAddresses'),
 };

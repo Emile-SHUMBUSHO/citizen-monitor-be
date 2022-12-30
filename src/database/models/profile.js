@@ -48,6 +48,11 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      village: {
+        type: 
+        DataTypes.STRING,
+        allowNull: false,
+      },
       photo: {
         type: DataTypes.STRING,
         allowNull: true,

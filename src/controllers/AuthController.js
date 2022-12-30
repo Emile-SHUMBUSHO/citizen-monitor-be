@@ -80,6 +80,7 @@ export default class AuthLocalController {
       district,
       sector,
       cell,
+      village
     } = req.body
     try {
       // 1. REGISTER A USER
@@ -98,12 +99,22 @@ export default class AuthLocalController {
         province,
         district,
         sector,
-        cell
+        cell,
+        village
       })
       // 3. CHECK AND DELETE OTP CODE
       await Delete('VerifyEmail', {
         email,
         code,
+      })
+      // 4. Adding to User Address
+      await Create('UserAddress', {
+        userId: response.id,
+        province,
+        district,
+        sector,
+        cell,
+        village
       })
       return (
         delete response.password &&

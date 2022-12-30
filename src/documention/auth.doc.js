@@ -89,6 +89,8 @@
  *                                  type: string
  *                              cell:
  *                                  type: string
+ *                              village:
+ *                                  type: string
  * 
  *          responses:
  *                  201:
