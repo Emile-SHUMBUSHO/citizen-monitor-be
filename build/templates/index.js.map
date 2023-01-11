@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","names":[],"sources":["../../src/templates/index.js"],"sourcesContent":["import * as account from './account'\nexport { account }\n"],"mappings":";;;;;;;AAAA;AAAoC;AAAA;AAAA"}

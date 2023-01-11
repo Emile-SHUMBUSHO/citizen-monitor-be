@@ -100,4 +100,24 @@ export default class DisplacementController {
             response
         })
     }
+
+    static async getDisplacementRequests(req, res){
+        // 1. check if user is leader
+        if(req.user.role === 'admin'){
+            const condition ={
+                status: 'pending',
+            }
+            const response = await FindAll('UserAddress', condition)
+            return res.status(200).json({
+                message: 'Retrieved successfully',
+                response
+            })
+        }else{
+            return res.status(403).send({
+                message: 'You are not leader!'
+            })
+
+        }
+        
+    }
 }

@@ -73,4 +73,22 @@
  *                  500:
  *                     description: Internal server error
  * 
+ * /displacement/displacement-requests:
+ *      get:
+ *          security:
+ *              - BearerToken: []
+ *          tags: [Displacement]
+ *          summary: This helps to List all displacement pending requests.
+ *          description: Retrieve Displacement pending request.
+ *    
+ *          responses:
+ *                  200:
+ *                     description: successfully request retrieved
+ *                  400:
+ *                     description: Bad Request
+ *                  403:
+ *                     description: Not allowed
+ *                  500:
+ *                     description: Internal server error
+ * 
  */

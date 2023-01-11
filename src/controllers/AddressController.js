@@ -4,7 +4,7 @@ import { Create, FindOne, Delete } from '../database/queries'
 export default class AddressController {
     static async approveAddress(req, res) {
         const {userId} = req.params;
-
+        
         const condition = {
             userId,
             status: 'pending'
