@@ -53,9 +53,33 @@
  *                  400:
  *                     description: Bad Request
  *                  403:
- *                     description: Not Found to perform this task
+ *                     description: Not allowed to perform this task
  *                  409:
  *                     description: Already is a leader
+ *                  500:
+ *                     description: Internal server error
+ * 
+ * /admin/citizens/{id}/change-to-citizen:
+ *      post:
+ *          security:
+ *              - BearerToken: []
+ *          tags: [Admin]
+ *          summary: This helps to change to citizen.
+ *          description: Change to Citizen.
+ *          parameters: 
+ *           - name: id
+ *             in: path
+ *             required: true
+ *         
+ *          responses:
+ *                  200:
+ *                     description: Citizen successfully
+ *                  400:
+ *                     description: Bad Request
+ *                  403:
+ *                     description: Not allowed to perform this task
+ *                  409:
+ *                     description: Already is a citizen
  *                  500:
  *                     description: Internal server error
  * 

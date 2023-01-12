@@ -49,42 +49,60 @@ export default class AdminController {
         }
       }
       
-    // static async changeRoleToLeader(req, res){
-    //     try {
-    //         const {id} = req.params
-    //         const response = await FindOne('User', {id})
+    static async changeRoleToLeader(req, res){
+        try {
+            const {id} = req.params
+            const response = await FindOne('User', {id})
 
-    //         if(Object.keys(response).length === 0) {
-    //             return res.status(404).json({
-    //                 message: 'User not found'
-    //             })
-    //         }
-    //         else if(response.role === 'chef'){
-    //             return res.status(409).json({
-    //                 message: 'User already is leader'
-    //             })
-    //         }else{
-    //             response.role = 'chef'
-    //            const saved = await response.save()
+            if(Object.keys(response).length === 0) {
+                return res.status(404).json({
+                    message: 'User not found'
+                })
+            }
+            else if(response.role === 'chef'){
+                return res.status(409).json({
+                    message: 'User already is leader'
+                })
+            }else{
+                response.role = 'chef'
+               const saved = await response.save()
 
-    //             return res.status(200).json({
-    //                 saved: saved,
-    //                 message: 'role updated successfully'
-    //             })
-    //         }
-    //         // const newRole = await response.update({
-    //         //     role: 'chef'
-    //         // })
-    //         return res.status(200).json({
-    //             user: response.role
-    //         })
+                return res.status(200).json({
+                    saved: saved,
+                    message: 'role updated successfully'
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
 
+    }
 
-            
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
+    static async changeRoleToCitizen(req, res){
+      try {
+          const {id} = req.params
+          const response = await FindOne('User', {id})
 
-    // }
+          if(Object.keys(response).length === 0) {
+              return res.status(404).json({
+                  message: 'User not found'
+              })
+          }
+          else if(response.role === 'normal'){
+              return res.status(409).json({
+                  message: 'User already is a citizen'
+              })
+          }else{
+              const saved = await response.update({role: 'normal'})
+              return res.status(200).json({
+                  saved: saved,
+                  message: 'role updated successfully to normal'
+              })
+          }
+      } catch (error) {
+          console.log(error)
+      }
+
+  }
             
 }
