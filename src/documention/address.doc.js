@@ -3,6 +3,8 @@
  *
  * /address/{userId}/approve:
  *      post:
+ *          security:
+ *              - BearerToken: []
  *          tags: [Address]
  *          summary: This helps to approve user's address.
  *          description: Approve User Address.
