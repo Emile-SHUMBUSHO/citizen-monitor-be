@@ -103,7 +103,7 @@ export default class DisplacementController {
 
     static async getDisplacementRequests(req, res){
         // 1. check if user is leader
-        if(req.user.role === 'admin'){
+        if(req.user.role === 'chef'){
             const condition ={
                 status: 'pending',
             }
