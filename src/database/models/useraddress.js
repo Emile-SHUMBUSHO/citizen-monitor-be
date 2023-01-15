@@ -63,7 +63,7 @@ export default (sequelize, DataTypes) => {
   UserAddress.associate = (models) => {
     UserAddress.belongsTo(models.User, {
       foreignKey: 'userId',
-      as: 'address'
+      as: 'useraddr'
     });
   };
   return UserAddress;

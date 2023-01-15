@@ -51,6 +51,10 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'user'
     });
+    User.hasOne(models.UserAddress, {
+      foreignKey: 'userId',
+      as: 'useraddr'
+    });
   };
   return User;
 };

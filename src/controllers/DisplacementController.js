@@ -1,3 +1,4 @@
+import db from '../database/models';
 import { Create, FindOne, Delete, FindAll } from '../database/queries'
 
 
@@ -102,12 +103,32 @@ export default class DisplacementController {
     }
 
     static async getDisplacementRequests(req, res){
+        // console.log('cheffff', req.user.profile)
         // 1. check if user is leader
         if(req.user.role === 'chef'){
+            const {user} = req.user
+            console.log('ttttt', user.district)
             const condition ={
                 status: 'pending',
+                province: user.province,
+                district: user.district,
+                sector: user.sector,
+                cell: user.cell,
+                village: user.village
             }
-            const response = await FindAll('UserAddress', condition)
+            const include = [
+                {
+                    model: db.User,
+                    as: 'useraddr',
+                    include: [
+                        {
+                            model: db.Profile,
+                            as: 'user'
+                        }
+                    ]
+                }
+            ]
+            const response = await FindAll('UserAddress', condition, include)
             return res.status(200).json({
                 message: 'Retrieved successfully',
                 response
