@@ -1,5 +1,5 @@
 import { FindAll, FindOne } from '../../database/queries'
-import {User} from '../../database/models'
+import db, {User} from '../../database/models'
 
 export default class AdminController {
     static async getAllCitizens(req, res){
@@ -14,8 +14,19 @@ export default class AdminController {
                 village,
                 status: "approved"
             }
-
-            const citizens = await FindAll('UserAddress', condition)
+            const include = [
+                {
+                    model: db.User,
+                    as: 'useraddr',
+                    include: [
+                        {
+                            model: db.Profile,
+                            as: 'user'
+                        }
+                    ]
+                }
+            ]
+            const citizens = await FindAll('UserAddress', condition, include)
             return res.status(200).json({
                 citizens
             })
