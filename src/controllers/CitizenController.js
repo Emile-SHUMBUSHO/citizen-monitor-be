@@ -1,4 +1,5 @@
 import { FindAll, FindOne } from '../database/queries'
+import db from '../database/models'
 
 export default class CitizenController {
     static async ListCitizens(req, res){
@@ -14,7 +15,19 @@ export default class CitizenController {
                 cell: user.cell && cell,
                 village: user.village && village
             }
-            const citizens = await FindAll('UserAddress', condition)
+            const include = [
+                {
+                    model: db.User,
+                    as: 'useraddr',
+                    include: [
+                        {
+                            model: db.Profile,
+                            as: 'user'
+                        }
+                    ]
+                }
+            ]
+            const citizens = await FindAll('UserAddress', condition, include)
             return res.status(200).json({
                 citizens
             })
